@@ -94,6 +94,13 @@ Aşağıdaki programları önceden kuralım.
 
 - Son olarak modemi ethernet kablosu ile LAN portundan bilgisayarımıza bağlayalım ve güç kablomuzu modeme takalım. **Ama modem kapalı durumda olsun.**
 
+- <details>
+  <summary>Son hali resimdeki gibi olmalıdır</summary>
+
+  ![image](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/assets/49123562/ee98bafc-9268-4dd5-8a06-f61ab950f455)
+
+</details>
+
 # 🚀 OpenWRT Kurulumu
 
 - <details>
