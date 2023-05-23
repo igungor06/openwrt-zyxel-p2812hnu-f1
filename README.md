@@ -2,10 +2,11 @@
 
 ![thumbnail](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/assets/49123562/e9e57423-b580-4933-87d5-ae3af7da1861)
 
-Bu yöntem ile Windows üzerinde ZyXEL P-2812HNU-F1 modeminize çok kısa sürede OpenWRT kurabileceksiniz.  
+Bu yöntem ile Windows üzerinde ZyXEL P-2812HNU-F1 modeminize OpenWRT kurabileceksiniz.  
 
-*OpenWRT kurulumunda oluşabilecek tüm komplikasyonlar sizin sorumluluğunuzdadır.*  
-*Konu ile ilgili hiçbir sorumluluk kabul etmiyoruz. Rehberimizi kaynak göstererek paylaşmanız önemle rica olunur.* 🙏
+**OpenWRT kurulumunda oluşabilecek tüm komplikasyonlar sizin sorumluluğunuzdadır.**  
+
+**Rehberimizi kaynak göstererek paylaşmanız önemle rica olunur.** 🙏
 
 <p align="left">
   <a href=""><img src="https://img.shields.io/badge/Youtube-Kurulum Video Rehberi-blue?logo=youtube&logoColor=white"/></a>
@@ -56,8 +57,17 @@ Aşağıdaki programları önceden kuralım.
 
 # ✨ Başlarken
 
+- Kuruluma başlamadan önce [OpenWRT.zip](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/releases/download/1.0/openwrt.rar) dosyamızı indirelim ve masaüstüne çıkartalım.
+
 - <details>
-  <summary>Kuruluma başlamadan önce Windows Ağ ayarlarından Ethernet'imize statik ip atayalım.</summary>
+  <summary>Dosyalara ait resim</summary>
+
+  ![openwrt](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/assets/49123562/b251ffba-178d-464a-a11b-5e2d86a56a0f)
+
+</details>
+
+- <details>
+  <summary>Windows Ağ ayarlarından Ethernet'imize statik ip atayalım</summary>
 
   > Denetim Masası\Ağ ve Internet\Ağ Bağlantıları
 
@@ -109,7 +119,7 @@ Aşağıdaki programları önceden kuralım.
   CFG 02
   UART
   ```
-- Şimdi cihaz UART modunda iken TeraTerm programından **"File" "Send File"** kısmından [u-boot.asc](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/releases/download/1.0/u-boot.asc) dosyasını seçin.
+- Şimdi cihaz UART modunda iken TeraTerm programından **"File" "Send File"** kısmından **u-boot.asc** dosyasını seçin.
 
 - U-Boot yüklemesi bittiğinde aşağıdaki komutu girin
 
@@ -124,9 +134,109 @@ Aşağıdaki programları önceden kuralım.
 
 </details>
 
+- TeraTerm programına aşağıdaki komutları sırayla girin:
+  ```
+  tftpboot openwrt-lantiq-p2812hnufx_nandtpl-u-boot-16M-patch.img
 
-# 😎 Merhaba OpenWRT!
-Tebrikler! Artık doğruca [192.168.1.1](http://192.168.1.1/) adresine giderek OpenWRT'ye merhaba diyebilirsiniz! \*alkış efekti\*  
+  nand write 0x81000000 0x0 0x38985
+  ```
+
+- Modemi kapatın. Modem kapandıktan sonra tekrar açalım ve **TeraTerm** programında görünen **autoboot** işlemini herhangi bir tuşa basarak durdurun.
+
+- Aşağıdaki komutları TeraTerm programına girelim. 
+
+  <details>
+  <summary>XX:XX:XX:XX:XX:XX yazan yere modemin arka yüzündeki etikette yazan MAC adresini yazınız</summary>
+
+  ![p-2812_stickerr](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/assets/49123562/b38c7965-e307-4e51-bec3-f5982fb38d76)
+
+  </details>
+
+  ```
+  mtdparts add nand0 256k uboot
+
+  mtdparts add nand0 128k uboot-env
+
+  mtdparts add nand0 3m kernel
+
+  mtdparts add nand0 - ubi
+
+  setenv ethaddr XX:XX:XX:XX:XX:XX
+
+  setenv nboot 'nand read 0x80800000 0x60000 0x300000; bootm 0x80800000'
+
+  setenv bootcmd 'run nboot'
+
+  saveenv
+
+  tftpboot openwrt-22.03.0-rc1-lantiq-xrx200-zyxel_p-2812hnu-f1-initramfs-kernel.bin
+
+  bootm $fileaddr
+  ```
+
+- Modem yeniden başlayacak. Akan yazılar durduğunda "Enter" tuşuna basalım. OPENWRT diye yazı göreceksiniz.
+
+- Modemin arayüzüne [192.168.1.1](https://192.168.1.1) adresinden giriş yapalım. 
+
+  **username: root ve şifresi yoktur**. Direkt **Login** butonuna tıklayalım.
+
+- Arayüze girdikten sonra üst panelden **System > Backup / Flash Firmware** kısmına girelim.
+
+  En aşağıdaki **Flash image..** butonuna tıklayalım. Açılan pencereden **Browse** butonuna tıklayarak **openwrt-22.03.0-rc1-lantiq-xrx200-zyxel_p-2812hnu-f1-squashfs-sysupgrade.bin** doyasını seçelim.
+
+  **Keep Settings** tikini kaldıralım ve dosyayı kuralım. Kurulum bittiğinde cihaz yeniden başlayacak.
+
+- Modeme OpenWRT kurduk ama wifi driverı olmadığı için şuan modemin wifisi çalışmamaktadır.
+
+  <details>
+  <summary>WinSCP programı ile modemin ana dizinine giriş yapalım.</summary>
+
+  ![winscplogin](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/assets/49123562/64be1765-8ff1-46e8-9cf7-b3a42852d69f)
+
+  </details>
+
+  <details>
+  <summary>/lib/firmware klasörünün içine RT3062.eeprom dosyasını sürükleyerek atalım</summary>
+
+  ![winscpfirmware](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/assets/49123562/d581ca08-9914-4339-99e0-d8d12eedb1b1)
+
+  </details>
+
+- **VDSL** bağlantısı WinSCP programınan aynı şekilde **/etc/config/network** dosyasını açın. Aşağıda verdiğim satırdaki **dsl0** yazan satırı bulup **dsl0.35** olarak düzenleyin (diğer kısımlara dokunmayın):
+
+  ```
+  config interface 'wan'
+    option ifname 'dsl0'
+    option proto 'pppoe'
+    option username 'XXXXXXXXX@XXXXXXXX.net'
+    option password 'XXXXXXXX'
+    option ipv6 '1'
+  ```
+
+  Düzenledikten sonraki hali:
+  ```
+  config interface 'wan'
+    option ifname 'dsl0.35'
+    option proto 'pppoe'
+    option username 'XXXXXXXXX@XXXXXXXX.net'
+    option password 'XXXXXXXX'
+    option ipv6 '1'
+  ```
+
+- Modem yeniden başladığında **wifi açılmama sorununu** çözmek için modem arayüzünden **System > Startup** kısmına ve oradan da **Local Startup** kısmına girelim. 
+
+  Çıkan ekrandaki yazıların hepsini aşağıdaki gibi düzenleyelim ve **Save** butonuna basarak kaydedilim:
+
+  ```
+  # Put your custom commands here that should be executed once
+  # the system init finished. By default this file does nothing.
+  echo 1 > /sys/bus/pci/rescan
+  exit 0
+  ```
+
+- Modem bir kere yeniden başlatalım ve istediğiniz diğer ayarları yapınız. 
+
+- **Tebrikler OpenWRT kurulumunu tamamladınız.** 👏👏
 
 # 💖 Özel Teşekkürler
 Yazdığı güzel readme'den örnek aldığım için [@frudotz](https://github.com/frudotz)'a teşekkürler.  
