@@ -47,7 +47,7 @@ Bu yöntem ile Windows üzerinde ZyXEL P-2812HNU-F1 modeminize OpenWRT kurabilec
 # 💻 Gerekli Programlar
 Aşağıdaki programları önceden kuralım.
 
-- P2303 Driver - [İndir](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/releases/download/1.0/1-PL2303_Driver.exe)
+- PL2303 Driver - [İndir](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/releases/download/1.0/1-PL2303_Driver.exe)
 
 - TeraTerm - [İndir](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/releases/download/1.0/2-teraterm-4.106.exe)
 
