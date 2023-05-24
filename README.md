@@ -9,7 +9,7 @@ Bu yöntem ile Windows üzerinde ZyXEL P-2812HNU-F1 modeminize OpenWRT kurabilec
 **Rehberimizi kaynak göstererek paylaşmanız önemle rica olunur.** 🙏
 
 <p align="left">
-  <a href=""><img src="https://img.shields.io/badge/Youtube-Kurulum Video Rehberi-blue?logo=youtube&logoColor=white"/>https://youtu.be/3NRZ06BoXCM</a>
+  <a href="https://youtu.be/3NRZ06BoXCM"><img src="https://img.shields.io/badge/Youtube-Kurulum Video Rehberi-blue?logo=youtube&logoColor=white"/></a>
 </p>
   
 
