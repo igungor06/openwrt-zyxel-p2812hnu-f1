@@ -83,7 +83,7 @@ Aşağıdaki programları önceden kuralım.
 </details>
 
 - <details>
-  <summary>Kartın arka yüzündeki serial kablolarına PL2303 kablomuzu şekildeki gibi bağlayalım</summary>
+  <summary>Kartın arka yüzündeki serial dişlerine PL2303 kablomuzu şekildeki gibi bağlayalım</summary>
 
   ![p-2812hnu-f1_board_top](https://github.com/yucellmustafa/openwrt-zyxel-p2812hnu-f1/assets/49123562/5e012f3a-6c66-44a0-a943-01b989452f08)
   
@@ -179,6 +179,7 @@ Aşağıdaki programları önceden kuralım.
   tftpboot openwrt-22.03.0-rc1-lantiq-xrx200-zyxel_p-2812hnu-f1-initramfs-kernel.bin
 
   bootm $fileaddr
+  
   ```
 
 - Modem yeniden başlayacak. Akan yazılar durduğunda "Enter" tuşuna basalım. OPENWRT diye yazı göreceksiniz.
