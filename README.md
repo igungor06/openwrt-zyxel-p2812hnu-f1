@@ -184,7 +184,7 @@ Aşağıdaki programları önceden kuralım.
 
 - Modem yeniden başlayacak. Akan yazılar durduğunda "Enter" tuşuna basalım. OPENWRT diye yazı göreceksiniz.
 
-- Modemin arayüzüne [192.168.1.1](https://192.168.1.1) adresinden giriş yapalım. 
+- Modemin arayüzüne [192.168.1.1](http://192.168.1.1) adresinden giriş yapalım. 
 
   **username: root ve şifresi yoktur**. Direkt **Login** butonuna tıklayalım.
 
